@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gallery – MineChain MDAI Lab | IIT (ISM) Dhanbad</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --white:#ffffff;--paper:#faf8f5;--cream:#f5f0e8;--warm:#ede8df;
+  --coal:#1a1208;--amber:#d97706;--amber2:#f59e0b;--amber3:#fbbf24;
+  --rust:#b45309;--teal:#0f766e;--teal2:#0d9488;--navy:#1e3a5f;
+  --muted:#78716c;--muted2:#a8a29e;
+  --border:rgba(120,80,20,0.13);--border2:rgba(120,80,20,0.07);
+  --shadow-sm:0 2px 8px rgba(120,80,20,0.08);
+  --shadow:0 4px 24px rgba(120,80,20,0.11);
+  --shadow-lg:0 12px 48px rgba(120,80,20,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--coal);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+/* NAV (same as index) */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:68px;
+  background:rgba(250,248,245,0.94);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-hex{width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+.nav-hex svg{width:44px;height:44px;}
+.nav-wordmark-main{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--coal);}
+.nav-wordmark-main span{color:var(--amber);}
+.nav-wordmark-sub{font-size:0.6rem;font-weight:600;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:1px;}
+.nav-links{display:flex;gap:0.25rem;list-style:none;}
+.nav-links a{padding:0.4rem 0.85rem;border-radius:8px;color:var(--muted);font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--amber);background:rgba(217,119,6,0.06);}
+.nav-btn{background:linear-gradient(135deg,var(--amber),var(--rust));color:#fff;padding:0.5rem 1.25rem;border-radius:9px;font-weight:700;font-size:0.82rem;transition:all 0.2s;box-shadow:0 2px 10px rgba(217,119,6,0.3);}
+.nav-btn:hover{transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--coal);border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:1rem 1.5rem;z-index:998;flex-direction:column;gap:0.25rem;box-shadow:var(--shadow);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{padding:0.6rem 0.75rem;border-radius:8px;font-weight:500;color:var(--coal);font-size:0.9rem;}
+
+/* HERO BANNER */
+.gallery-hero{
+  padding:7rem 3rem 4rem;
+  background:linear-gradient(160deg,#fffdf9 0%,#fdf6e9 50%,#f0f9f8 100%);
+  position:relative;overflow:hidden;
+}
+.hex-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92'%3E%3Cpolygon points='40,2 74,21 74,59 40,78 6,59 6,21' fill='none' stroke='%23d97706' stroke-width='0.4' opacity='0.12'/%3E%3C/svg%3E");
+  background-size:80px 92px;
+}
+.gallery-hero-inner{max-width:1140px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--rust);margin-bottom:0.75rem;}
+.ew-line{width:22px;height:2.5px;border-radius:2px;background:var(--rust);}
+.gallery-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:var(--coal);margin-bottom:0.875rem;}
+.gallery-hero h1 em{font-style:normal;color:var(--rust);}
+.gallery-hero p{color:var(--muted);font-size:1rem;max-width:540px;}
+
+/* FILTER TABS */
+.filter-bar{
+  max-width:1140px;margin:0 auto;
+  padding:2rem 3rem 0;
+  display:flex;gap:0.625rem;flex-wrap:wrap;
+}
+.filter-btn{
+  padding:0.45rem 1.1rem;border-radius:100px;
+  font-size:0.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);
+  background:var(--white);color:var(--muted);transition:all 0.2s;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.filter-btn:hover,.filter-btn.active{
+  background:var(--amber);color:#fff;border-color:var(--amber);
+  box-shadow:0 2px 10px rgba(217,119,6,0.3);
+}
+
+/* GALLERY GRID */
+.gallery-section{padding:2rem 3rem 5rem;}
+.gallery-container{max-width:1140px;margin:0 auto;}
+.gallery-category{margin-bottom:3.5rem;}
+.cat-label{
+  display:flex;align-items:center;gap:12px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--muted);margin-bottom:1.5rem;
+}
+.cat-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cat-label-icon{font-size:1rem;}
+
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.photo-grid.featured{
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:280px 200px;
+}
+.photo-grid.featured .pg-item:first-child{grid-column:span 2;grid-row:span 2;}
+
+.pg-item{
+  border-radius:14px;overflow:hidden;position:relative;
+  background:var(--cream);cursor:pointer;
+  transition:all 0.3s;aspect-ratio:4/3;
+}
+.photo-grid.featured .pg-item{aspect-ratio:unset;}
+.pg-item:hover{transform:scale(1.02);box-shadow:var(--shadow-lg);z-index:2;}
+.pg-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.pg-item:hover img{transform:scale(1.06);}
+
+.pg-placeholder{
+  width:100%;height:100%;min-height:200px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,var(--cream),var(--warm));
+}
+.pg-ph-emoji{font-size:2.2rem;}
+.pg-ph-text{font-size:0.75rem;color:var(--muted);font-weight:500;text-align:center;padding:0 0.75rem;}
+
+.pg-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,12,4,0.72) 0%,transparent 55%);
+  opacity:0;transition:opacity 0.3s;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;
+}
+.pg-item:hover .pg-overlay{opacity:1;}
+.pg-caption{color:#fff;font-size:0.8rem;font-weight:600;line-height:1.4;}
+.pg-sub{color:rgba(255,255,255,0.75);font-size:0.72rem;margin-top:2px;}
+
+.pg-bottom-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(20,12,4,0.65),transparent);
+  padding:0.625rem 0.875rem;
+}
+.pg-bottom-label span{color:#fff;font-size:0.75rem;font-weight:600;}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(10,6,2,0.92);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.lightbox.open{opacity:1;pointer-events:all;}
+.lb-inner{position:relative;max-width:90vw;max-height:90vh;}
+.lb-inner img{
+  max-width:90vw;max-height:80vh;border-radius:14px;
+  object-fit:contain;box-shadow:0 20px 80px rgba(0,0,0,0.6);
+}
+.lb-close{
+  position:absolute;top:-40px;right:0;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);
+  color:#fff;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.lb-close:hover{background:rgba(217,119,6,0.4);}
+.lb-caption{color:rgba(255,255,255,0.8);font-size:0.85rem;text-align:center;margin-top:0.875rem;}
+
+/* FOOTER MINI */
+.footer-mini{
+  background:var(--coal);color:rgba(255,255,255,0.6);
+  padding:1.75rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.fm-brand{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:var(--amber3);}
+.fm-links{display:flex;gap:1.5rem;}
+.fm-links a{font-size:0.8rem;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.fm-links a:hover{color:var(--amber3);}
+
+/* responsive */
+@media(max-width:900px){
+  nav{padding:0 1.25rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .gallery-hero,.gallery-section,.filter-bar{padding-left:1.25rem;padding-right:1.25rem;}
+  .photo-grid{grid-template-columns:1fr 1fr;}
+  .photo-grid.featured{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .photo-grid.featured .pg-item:first-child{grid-column:span 2;grid-row:span 1;}
+  .footer-mini{flex-direction:column;text-align:center;padding:1.5rem 1.25rem;}
+}
+@media(max-width:480px){
+  .photo-grid{grid-template-columns:1fr;}
+  .photo-grid.featured .pg-item:first-child{grid-column:span 1;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-hex">
+      <svg viewBox="0 0 44 44" fill="none">
+        <polygon points="22,3 39,12.5 39,31.5 22,41 5,31.5 5,12.5" fill="url(#ng2)"/>
+        <line x1="14" y1="30" x2="30" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M27 11 Q35 9 36 17 Q30 15 27 19Z" fill="white"/>
+        <circle cx="16" cy="29" r="2.5" fill="rgba(255,255,255,0.5)"/>
+        <ellipse cx="7" cy="22" rx="4" ry="2" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+        <ellipse cx="37" cy="22" rx="4" ry="2" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+        <defs><linearGradient id="ng2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1e3a5f"/><stop offset="100%" style="stop-color:#0f766e"/></linearGradient></defs>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-wordmark-main">Mine<span>Chain</span></div>
+      <div class="nav-wordmark-sub">MDAI Lab</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#products">Products</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="index.html#team">Team</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <a href="https://shieldmine.streamlit.app" target="_blank" class="nav-btn">⚒ Shield Mine ↗</a>
+    <div class="hamburger" onclick="document.getElementById('mm').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#products">Products</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="index.html#team">Team</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<div class="gallery-hero">
+  <div class="hex-bg"></div>
+  <div class="gallery-hero-inner">
+    <div class="eyebrow"><div class="ew-line"></div>Gallery</div>
+    <h1>Lab Life & <em>Our Work</em></h1>
+    <p>Fieldwork at mine sites, lab equipment, research presentations, workshops, and team moments from the MDAI Lab at IIT (ISM) Dhanbad.</p>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filter('all',this)">All Photos</button>
+  <button class="filter-btn" onclick="filter('lab',this)">🔬 Lab & Equipment</button>
+  <button class="filter-btn" onclick="filter('field',this)">⛏ Field & Mines</button>
+  <button class="filter-btn" onclick="filter('team',this)">👥 Team & Events</button>
+  <button class="filter-btn" onclick="filter('research',this)">📊 Research & Demos</button>
+</div>
+
+<!-- GALLERY CONTENT -->
+<div class="gallery-section">
+  <div class="gallery-container">
+
+    <!-- Featured / Lab -->
+    <div class="gallery-category" data-cat="lab">
+      <div class="cat-label"><span class="cat-label-icon">🔬</span> Lab & Equipment</div>
+      <div class="photo-grid featured">
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80" alt="Lab Equipment"/>
+          <div class="pg-overlay"><div class="pg-caption">Lab Workstation & Sensor Array</div><div class="pg-sub">MDAI Lab · IIT (ISM) Dhanbad</div></div>
+          <div class="pg-bottom-label"><span>🖥 Main Lab Setup</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&q=80" alt="Research Work"/>
+          <div class="pg-overlay"><div class="pg-caption">AI Research & Development</div><div class="pg-sub">Deep Learning Model Training</div></div>
+          <div class="pg-bottom-label"><span>💻 AI Development</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🚁</div><div class="pg-ph-text">Survey Drone<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">Aerial Survey Drone</div><div class="pg-sub">Used for mine site mapping</div></div>
+          <div class="pg-bottom-label"><span>🚁 Survey Drone</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🌬️</div><div class="pg-ph-text">Air Quality Monitor<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">Air Quality Monitoring System</div><div class="pg-sub">Real-time gas & particulate sensing</div></div>
+          <div class="pg-bottom-label"><span>🌬️ Air Quality Monitor</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">⚙️</div><div class="pg-ph-text">PLC Control System<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">PLC Automation Systems</div><div class="pg-sub">Programmable Logic Controllers</div></div>
+          <div class="pg-bottom-label"><span>⚙️ PLC Systems</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Field & Mines -->
+    <div class="gallery-category" data-cat="field">
+      <div class="cat-label"><span class="cat-label-icon">⛏</span> Field Work & Mine Visits</div>
+      <div class="photo-grid">
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Mining Site"/>
+          <div class="pg-overlay"><div class="pg-caption">Underground Mine Site Visit</div><div class="pg-sub">Coal mine fieldwork</div></div>
+          <div class="pg-bottom-label"><span>⛏ Mine Site Visit</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80" alt="Drone Survey"/>
+          <div class="pg-overlay"><div class="pg-caption">Drone Survey — Open Cast Mine</div><div class="pg-sub">Aerial photogrammetry mapping</div></div>
+          <div class="pg-bottom-label"><span>🚁 Drone Survey</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🏭</div><div class="pg-ph-text">MCL Mine Visit<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">MCL Coalfield Visit</div><div class="pg-sub">Mahanadi Coalfields field study</div></div>
+          <div class="pg-bottom-label"><span>🏭 MCL Coalfield</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">📡</div><div class="pg-ph-text">Sensor Deployment<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">IoT Sensor Deployment</div><div class="pg-sub">Installing mine monitoring sensors</div></div>
+          <div class="pg-bottom-label"><span>📡 Sensor Install</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team & Events -->
+    <div class="gallery-category" data-cat="team">
+      <div class="cat-label"><span class="cat-label-icon">👥</span> Team & Events</div>
+      <div class="photo-grid">
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Team"/>
+          <div class="pg-overlay"><div class="pg-caption">Lab Team — MDAI Lab</div><div class="pg-sub">IIT (ISM) Dhanbad</div></div>
+          <div class="pg-bottom-label"><span>👥 Lab Team</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🎓</div><div class="pg-ph-text">Internship Batch<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">Intern & MTech Batch 2024</div><div class="pg-sub">Onboarding & orientation</div></div>
+          <div class="pg-bottom-label"><span>🎓 Intern Batch</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🏆</div><div class="pg-ph-text">Award / Recognition<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">Lab Recognition & Awards</div><div class="pg-sub">Industry collaboration award</div></div>
+          <div class="pg-bottom-label"><span>🏆 Awards</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🤝</div><div class="pg-ph-text">Industry Visit<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">MCL Industry Partnership</div><div class="pg-sub">Coal India collaboration meet</div></div>
+          <div class="pg-bottom-label"><span>🤝 Industry Visit</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research & Demos -->
+    <div class="gallery-category" data-cat="research">
+      <div class="cat-label"><span class="cat-label-icon">📊</span> Research, Demos & Presentations</div>
+      <div class="photo-grid">
+        <div class="pg-item" onclick="openLb(this)">
+          <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&q=80" alt="Presentation"/>
+          <div class="pg-overlay"><div class="pg-caption">Shield Mine Demo Presentation</div><div class="pg-sub">AI-powered mining accident analysis</div></div>
+          <div class="pg-bottom-label"><span>🖥 Shield Mine Demo</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">📊</div><div class="pg-ph-text">Conference Presentation<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">National Mining Conference</div><div class="pg-sub">Research paper presentation</div></div>
+          <div class="pg-bottom-label"><span>📊 Conference</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🛡️</div><div class="pg-ph-text">AIMSURE Demo<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">AIMSURE System Demo</div><div class="pg-sub">AI-enabled mine inspection</div></div>
+          <div class="pg-bottom-label"><span>🛡 AIMSURE Demo</span></div>
+        </div>
+        <div class="pg-item" onclick="openLb(this)">
+          <div class="pg-placeholder"><div class="pg-ph-emoji">🔤</div><div class="pg-ph-text">NLP Research Demo<br/>Replace with actual photo</div></div>
+          <div class="pg-overlay"><div class="pg-caption">NLP Engine Research Demo</div><div class="pg-sub">Mine incident text classification</div></div>
+          <div class="pg-bottom-label"><span>🔤 NLP Demo</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLb(event)">
+  <div class="lb-inner">
+    <div class="lb-close" onclick="closeLb()">✕</div>
+    <img id="lb-img" src="" alt=""/>
+    <div class="lb-caption" id="lb-cap"></div>
+  </div>
+</div>
+
+<!-- FOOTER MINI -->
+<div class="footer-mini">
+  <div class="fm-brand">⚒ MineChain · MDAI Lab</div>
+  <div class="fm-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Products</a>
+    <a href="index.html#team">Team</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <div style="font-size:0.78rem;">© 2024 IIT (ISM) Dhanbad · minechain.in</div>
+</div>
+
+<script>
+// Filter
+function filter(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.gallery-category').forEach(c=>{
+    if(cat==='all'||c.dataset.cat===cat){c.style.display='block';}
+    else{c.style.display='none';}
+  });
+}
+
+// Lightbox
+function openLb(el){
+  const img = el.querySelector('img');
+  const cap = el.querySelector('.pg-bottom-label span');
+  if(!img) return;
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-cap').textContent = cap ? cap.textContent : '';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLb(e){
+  if(!e || e.target===document.getElementById('lightbox')||e.target.classList.contains('lb-close')){
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+</script>
+</body>
+</html>

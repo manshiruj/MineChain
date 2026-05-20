@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MineChain – Mine Digitalization & AI Lab | IIT (ISM) Dhanbad</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════
+   TOKENS
+═══════════════════════════════ */
+:root{
+  --white:#ffffff;
+  --paper:#faf8f5;
+  --cream:#f5f0e8;
+  --warm:#ede8df;
+  --coal:#1a1208;
+  --ore:#2c1a08;
+  --amber:#d97706;
+  --amber2:#f59e0b;
+  --amber3:#fbbf24;
+  --rust:#b45309;
+  --teal:#0f766e;
+  --teal2:#0d9488;
+  --teal3:#14b8a6;
+  --navy:#1e3a5f;
+  --navy2:#1d4ed8;
+  --muted:#78716c;
+  --muted2:#a8a29e;
+  --border:rgba(120,80,20,0.13);
+  --border2:rgba(120,80,20,0.07);
+  --shadow-sm:0 2px 8px rgba(120,80,20,0.08);
+  --shadow:0 4px 24px rgba(120,80,20,0.11);
+  --shadow-lg:0 12px 48px rgba(120,80,20,0.14);
+  --radius:14px;
+  --radius-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--coal);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.15;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+/* ═══════════════════════════════
+   HEXAGON BACKGROUND MOTIF
+═══════════════════════════════ */
+.hex-bg{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92'%3E%3Cpolygon points='40,2 74,21 74,59 40,78 6,59 6,21' fill='none' stroke='%23d97706' stroke-width='0.4' opacity='0.12'/%3E%3C/svg%3E");
+  background-size:80px 92px;
+}
+
+/* ═══════════════════════════════
+   NAVBAR
+═══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:68px;
+  background:rgba(250,248,245,0.94);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 1px 0 var(--border2);
+}
+.nav-brand{display:flex;align-items:center;gap:14px;}
+.nav-hex{
+  width:44px;height:44px;position:relative;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-hex svg{width:44px;height:44px;}
+.nav-wordmark{display:flex;flex-direction:column;gap:0;}
+.nav-wordmark-main{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:800;line-height:1;
+  color:var(--coal);letter-spacing:-0.02em;
+}
+.nav-wordmark-main span{color:var(--amber);}
+.nav-wordmark-sub{
+  font-size:0.6rem;font-weight:600;
+  color:var(--muted);letter-spacing:0.1em;
+  text-transform:uppercase;margin-top:1px;
+}
+.nav-divider{width:1px;height:32px;background:var(--border);margin:0 4px;}
+.nav-iit{
+  display:flex;align-items:center;gap:7px;
+}
+.iit-badge-nav{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#003087,#1560bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;font-weight:800;color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  text-align:center;line-height:1.2;border:2px solid rgba(0,48,135,0.15);
+  padding:4px;flex-shrink:0;
+}
+.iit-text-nav{font-size:0.68rem;font-weight:600;color:var(--muted);line-height:1.3;}
+.nav-links{display:flex;gap:0.25rem;list-style:none;align-items:center;}
+.nav-links a{
+  padding:0.4rem 0.85rem;border-radius:8px;
+  color:var(--muted);font-size:0.85rem;font-weight:500;
+  transition:all 0.2s;
+}
+.nav-links a:hover{color:var(--amber);background:rgba(217,119,6,0.06);}
+.nav-links a.active{color:var(--amber);font-weight:600;}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+.nav-btn{
+  background:linear-gradient(135deg,var(--amber),var(--rust));
+  color:#fff;padding:0.5rem 1.25rem;border-radius:9px;
+  font-weight:700;font-size:0.82rem;
+  transition:all 0.2s;
+  box-shadow:0 2px 10px rgba(217,119,6,0.3);
+  white-space:nowrap;
+}
+.nav-btn:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(217,119,6,0.4);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--coal);border-radius:2px;transition:all 0.3s;}
+.mobile-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:1rem 1.5rem;z-index:998;flex-direction:column;gap:0.25rem;
+  box-shadow:var(--shadow);
+}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{padding:0.6rem 0.75rem;border-radius:8px;font-weight:500;color:var(--coal);font-size:0.9rem;}
+.mobile-menu a:hover{background:var(--cream);color:var(--amber);}
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+#hero{
+  min-height:100vh;padding:7rem 3rem 5rem;
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#fffdf9 0%,#fdf6e9 50%,#f0f9f8 100%);
+  display:flex;align-items:center;
+}
+/* .hero-inner{
+  max-width:1140px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr;gap:4rem;align-items:center;
+  position:relative;z-index:1;
+} */
+ .hero-inner{
+  max-width:1140px;
+  margin:0 auto;
+  width:100%;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  gap:2rem;
+
+  position:relative;
+  z-index:1;
+}
+.hero-top-badges{
+  justify-content:center;
+}
+
+.hero-btns{
+  justify-content:center;
+}
+
+.hero-stats{
+  justify-content:center;
+}
+
+.hstat{
+  text-align:center;
+}
+
+.hero-desc{
+  max-width:720px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.hero-top-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid var(--border);
+  padding:0.35rem 0.9rem;border-radius:100px;
+  font-size:0.75rem;font-weight:600;color:var(--muted);
+  box-shadow:var(--shadow-sm);
+  animation:fadeUp 0.5s ease both;
+}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-amber{background:var(--amber);}
+.dot-teal{background:var(--teal);}
+.dot-navy{background:var(--navy);}
+#hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  font-weight:900;color:var(--coal);
+  margin-bottom:1rem;
+  animation:fadeUp 0.5s 0.1s ease both;
+}
+#hero h1 em{font-style:normal;color:var(--amber);}
+#hero h1 .teal{color:var(--teal);}
+.hero-desc{
+  font-size:1rem;color:var(--muted);max-width:520px;
+  margin-bottom:2rem;line-height:1.75;
+  animation:fadeUp 0.5s 0.18s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  margin-bottom:3rem;
+  animation:fadeUp 0.5s 0.26s ease both;
+}
+.btn-solid{
+  background:linear-gradient(135deg,var(--amber),var(--rust));
+  color:#fff;padding:0.8rem 1.6rem;border-radius:10px;
+  font-weight:700;font-size:0.9rem;
+  box-shadow:0 3px 14px rgba(217,119,6,0.3);
+  transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(217,119,6,0.4);}
+.btn-teal{background:linear-gradient(135deg,var(--teal),var(--teal2));box-shadow:0 3px 14px rgba(15,118,110,0.25);}
+.btn-teal:hover{box-shadow:0 6px 24px rgba(15,118,110,0.35);}
+.btn-ghost{
+  background:transparent;color:var(--coal);
+  padding:0.8rem 1.6rem;border-radius:10px;
+  font-weight:600;font-size:0.9rem;
+  border:1.5px solid var(--border);
+  transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber);background:rgba(217,119,6,0.04);}
+.hero-stats{
+  display:flex;gap:2.5rem;flex-wrap:wrap;
+  animation:fadeUp 0.5s 0.34s ease both;
+}
+.hstat{text-align:left;}
+.hstat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:900;line-height:1;
+}
+.hstat-label{font-size:0.75rem;color:var(--muted);font-weight:500;margin-top:3px;}
+.n-amber{color:var(--amber);}
+.n-teal{color:var(--teal);}
+.n-navy{color:var(--navy);}
+
+/* PI CARD */
+.pi-card{
+  background:#fff;border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  animation:fadeUp 0.5s 0.42s ease both;
+}
+.pi-card-band{
+  background:linear-gradient(135deg,var(--navy),var(--teal));
+  padding:1.5rem 1.75rem;position:relative;overflow:hidden;
+}
+.pi-card-band::after{
+  content:'⛏';position:absolute;right:1rem;top:50%;
+  transform:translateY(-50%);font-size:5rem;opacity:0.08;
+}
+.pi-card-band .pi-label{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:0.875rem;
+}
+.pi-ava{
+  width:60px;height:60px;border-radius:50%;
+  background:rgba(255,255,255,0.2);border:2.5px solid rgba(255,255,255,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;
+  margin-bottom:0.75rem;
+}
+.pi-card-band h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;
+}
+.pi-card-band .pi-sub{font-size:0.8rem;color:rgba(255,255,255,0.8);}
+.pi-card-body{padding:1.4rem 1.75rem;}
+.pi-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:0.875rem;}
+.pi-row-icon{font-size:15px;margin-top:2px;flex-shrink:0;}
+.pi-row-text{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+.pi-row-text strong{display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--coal);font-weight:700;margin-bottom:1px;}
+.pi-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem;}
+.pi-tag{
+  font-size:0.7rem;padding:3px 10px;border-radius:100px;
+  font-weight:600;border:1px solid;
+}
+.pt-a{background:rgba(217,119,6,0.08);color:var(--amber);border-color:rgba(217,119,6,0.2);}
+.pt-t{background:rgba(15,118,110,0.08);color:var(--teal);border-color:rgba(15,118,110,0.2);}
+.pt-n{background:rgba(30,58,95,0.08);color:var(--navy);border-color:rgba(30,58,95,0.2);}
+.mcl-badge{
+  margin-top:1.1rem;padding:0.75rem;border-radius:10px;
+  background:linear-gradient(135deg,rgba(217,119,6,0.06),rgba(15,118,110,0.04));
+  border:1px solid rgba(217,119,6,0.15);
+  display:flex;align-items:center;gap:10px;
+}
+.mcl-icon{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#1a3a1a,#2d5a2d);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.mcl-text{font-size:0.75rem;line-height:1.4;}
+.mcl-text strong{display:block;font-weight:700;color:var(--coal);font-size:0.78rem;}
+.mcl-text span{color:var(--muted);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════ */
+section{padding:6rem 3rem;position:relative;}
+.sec-inner{max-width:1140px;margin:0 auto;}
+.sec-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.14em;margin-bottom:0.75rem;
+}
+.ew-line{width:22px;height:2.5px;border-radius:2px;flex-shrink:0;}
+.sec-title{font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:900;color:var(--coal);margin-bottom:0.75rem;}
+.sec-title em{font-style:normal;}
+.sec-desc{color:var(--muted);max-width:540px;font-size:0.95rem;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1),transform 0.6s cubic-bezier(0.22,1,0.36,1);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-d1{transition-delay:0.08s;}
+.reveal-d2{transition-delay:0.16s;}
+.reveal-d3{transition-delay:0.24s;}
+
+/* ═══════════════════════════════
+   ABOUT
+═══════════════════════════════ */
+#about{background:var(--white);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-features{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+.af{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:1rem 1.25rem;border-radius:12px;
+  background:var(--paper);border:1px solid var(--border2);
+  transition:all 0.22s;
+}
+.af:hover{box-shadow:var(--shadow);transform:translateX(4px);}
+.af-icon{
+  width:38px;height:38px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.af-icon.amber{background:rgba(217,119,6,0.1);}
+.af-icon.teal{background:rgba(15,118,110,0.1);}
+.af-icon.navy{background:rgba(30,58,95,0.1);}
+.af-icon.rust{background:rgba(180,83,9,0.1);}
+.af-body h4{font-family:'Plus Jakarta Sans',serif;font-size:0.92rem;font-weight:700;margin-bottom:2px;}
+.af-body p{font-size:0.82rem;color:var(--muted);line-height:1.55;}
+
+.about-right{display:flex;flex-direction:column;gap:1.25rem;}
+.iit-card{
+  background:var(--paper);border:1px solid var(--border);border-radius:16px;
+  padding:1.5rem;display:flex;gap:1.25rem;align-items:center;
+  box-shadow:var(--shadow-sm);
+}
+.iit-logo-big{
+  width:68px;height:68px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#003087,#1560bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;text-align:center;
+  line-height:1.3;border:3px solid rgba(0,48,135,0.1);padding:8px;
+}
+.iit-card-text h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:700;}
+.iit-card-text p{font-size:0.8rem;color:var(--muted);margin-top:3px;line-height:1.5;}
+.mcl-sponsor-card{
+  background:linear-gradient(135deg,#f0f7f0,#e8f5e8);
+  border:1px solid rgba(40,100,40,0.15);border-radius:16px;
+  padding:1.5rem;display:flex;gap:1.25rem;align-items:center;
+}
+.mcl-logo-circle{
+  width:60px;height:60px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(135deg,#1a4a1a,#2d6e2d);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;text-align:center;line-height:1.3;padding:8px;
+}
+.mcl-sponsor-card h4{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:3px;}
+.mcl-sponsor-card p{font-size:0.78rem;color:#3a6b3a;line-height:1.5;}
+.stat-mini-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.stat-mini{
+  background:var(--paper);border:1px solid var(--border);border-radius:14px;
+  padding:1.25rem;text-align:center;
+}
+.sm-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;}
+.sm-label{font-size:0.72rem;color:var(--muted);font-weight:500;margin-top:2px;}
+
+/* ═══════════════════════════════
+   PRODUCTS
+═══════════════════════════════ */
+#products{background:var(--paper);}
+.products-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;margin-top:3rem;
+}
+.pcard{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;transition:all 0.3s;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);
+}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+.pcard-img{
+  height:180px;overflow:hidden;position:relative;
+  background:var(--cream);flex-shrink:0;
+}
+.pcard-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.4s;
+}
+.pcard:hover .pcard-img img{transform:scale(1.05);}
+.pcard-img-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  font-size:2.8rem;
+  background:linear-gradient(135deg,var(--cream),var(--warm));
+}
+.pcard-img-placeholder span{font-size:0.78rem;color:var(--muted);font-weight:500;}
+.pcard-strip{height:3px;width:100%;}
+.pcard-body{padding:1.5rem;flex:1;display:flex;flex-direction:column;}
+.pcard-tag{
+  display:inline-block;font-size:0.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.08em;
+  padding:3px 10px;border-radius:100px;margin-bottom:0.875rem;
+}
+.tag-amber{background:rgba(217,119,6,0.1);color:var(--amber);}
+.tag-teal{background:rgba(15,118,110,0.1);color:var(--teal);}
+.tag-navy{background:rgba(30,58,95,0.1);color:var(--navy);}
+.tag-muted{background:rgba(120,113,108,0.1);color:var(--muted);}
+.pcard-body h3{font-size:1.15rem;font-weight:800;margin-bottom:0.5rem;}
+.pcard-body p{font-size:0.83rem;color:var(--muted);line-height:1.65;flex:1;}
+.pcard-footer{
+  padding:1rem 1.5rem 1.5rem;
+  border-top:1px solid var(--border2);
+  display:flex;flex-direction:column;gap:0.5rem;
+}
+.pcard-meta{font-size:0.72rem;color:var(--muted2);}
+.pcard-btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:0.65rem 1rem;border-radius:9px;
+  font-size:0.84rem;font-weight:700;
+  transition:all 0.2s;border:none;cursor:pointer;width:100%;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.pcard-btn.amber{background:linear-gradient(135deg,var(--amber),var(--rust));color:#fff;box-shadow:0 2px 10px rgba(217,119,6,0.25);}
+.pcard-btn.amber:hover{box-shadow:0 4px 18px rgba(217,119,6,0.4);transform:translateY(-1px);}
+.pcard-btn.teal{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;box-shadow:0 2px 10px rgba(15,118,110,0.25);}
+.pcard-btn.teal:hover{box-shadow:0 4px 18px rgba(15,118,110,0.35);transform:translateY(-1px);}
+.pcard-btn.navy{background:linear-gradient(135deg,var(--navy),#2d4a7a);color:#fff;box-shadow:0 2px 10px rgba(30,58,95,0.2);}
+.pcard-btn.navy:hover{box-shadow:0 4px 18px rgba(30,58,95,0.3);transform:translateY(-1px);}
+.pcard-btn.disabled{background:var(--warm);color:var(--muted2);cursor:not-allowed;box-shadow:none;}
+.coming-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--warm);border:1px solid var(--border);
+  padding:0.35rem 0.9rem;border-radius:100px;
+  font-size:0.72rem;font-weight:600;color:var(--muted);
+  margin-bottom:0.5rem;align-self:flex-start;
+}
+.more-coming{
+  background:var(--cream);border:2px dashed rgba(120,80,20,0.18);
+  border-radius:var(--radius-lg);padding:2.5rem;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:0.875rem;
+  grid-column:span 3;
+}
+.more-coming h4{font-size:1.1rem;font-weight:800;color:var(--coal);}
+.more-coming p{font-size:0.85rem;color:var(--muted);}
+
+/* ═══════════════════════════════
+   GALLERY PREVIEW
+═══════════════════════════════ */
+#gallery-preview{background:var(--white);}
+.gallery-mosaic{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:220px 220px;
+  gap:12px;margin-top:2.5rem;
+}
+.gitem{
+  border-radius:14px;overflow:hidden;position:relative;
+  background:var(--cream);transition:all 0.3s;cursor:pointer;
+}
+.gitem:hover{transform:scale(1.02);box-shadow:var(--shadow-lg);z-index:2;}
+.gitem:nth-child(1){grid-column:span 2;grid-row:span 2;}
+.gitem:nth-child(5){grid-column:span 2;}
+.gitem img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.gitem:hover img{transform:scale(1.06);}
+.gitem-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(20,12,4,0.65) 0%,transparent 50%);
+  opacity:0;transition:opacity 0.3s;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;
+}
+.gitem:hover .gitem-overlay{opacity:1;}
+.gitem-overlay-label{
+  color:#fff;font-size:0.82rem;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+}
+.gitem-label-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(20,12,4,0.7),transparent);
+  padding:0.75rem 1rem;
+}
+.gitem-label-bar span{color:#fff;font-size:0.78rem;font-weight:600;}
+/* placeholder when no image */
+.gitem-ph{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,var(--cream),var(--warm));
+}
+.gitem-ph-emoji{font-size:2.5rem;}
+.gitem-ph-text{font-size:0.78rem;color:var(--muted);font-weight:500;text-align:center;padding:0 1rem;}
+.gallery-cta{
+  display:flex;justify-content:center;margin-top:1.75rem;
+}
+
+/* ═══════════════════════════════
+   LAB EQUIPMENT STRIP
+═══════════════════════════════ */
+#equipment{
+  background:linear-gradient(135deg,var(--navy),#0d2a47);
+  padding:4rem 3rem;overflow:hidden;
+}
+.eq-inner{max-width:1140px;margin:0 auto;}
+.eq-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:800;color:#fff;
+  margin-bottom:2rem;text-align:center;
+}
+.eq-title span{color:var(--amber3);}
+.eq-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1rem;
+}
+.eq-item{
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+  border-radius:14px;padding:1.25rem 1rem;text-align:center;
+  transition:all 0.25s;
+}
+.eq-item:hover{background:rgba(217,119,6,0.15);border-color:rgba(217,119,6,0.3);transform:translateY(-3px);}
+.eq-emoji{font-size:2rem;margin-bottom:0.625rem;display:block;}
+.eq-name{font-size:0.78rem;color:rgba(255,255,255,0.85);font-weight:600;line-height:1.3;}
+
+/* ═══════════════════════════════
+   TEAM
+═══════════════════════════════ */
+#team{background:var(--paper);}
+.pi-section-full{
+  background:linear-gradient(135deg,#fffbeb,#f0f9f8);
+  border:1px solid rgba(217,119,6,0.18);border-radius:var(--radius-lg);
+  padding:2.25rem 2.5rem;margin-bottom:3rem;
+  display:grid;grid-template-columns:auto 1fr;gap:2.25rem;align-items:center;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.pi-section-full::after{
+  content:'🔬';position:absolute;right:2rem;top:50%;
+  transform:translateY(-50%);font-size:6rem;opacity:0.05;
+}
+.pi-ava-lg{
+  width:96px;height:96px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;
+  border:4px solid rgba(15,118,110,0.2);
+  box-shadow:0 4px 20px rgba(15,118,110,0.25);
+}
+.pi-incharge-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(217,119,6,0.1);border:1px solid rgba(217,119,6,0.25);
+  color:var(--amber);padding:3px 12px;border-radius:100px;
+  font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:0.5rem;
+}
+.pi-section-full h3{font-size:1.55rem;font-weight:900;margin-bottom:3px;}
+.pi-section-full .pi-role-text{font-size:0.88rem;color:var(--teal);font-weight:600;margin-bottom:3px;}
+.pi-section-full .pi-inst-text{font-size:0.82rem;color:var(--muted);margin-bottom:1rem;}
+.tc-section{margin-bottom:2.5rem;}
+.tc-section-label{
+  display:flex;align-items:center;gap:12px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--muted);margin-bottom:1.25rem;
+}
+.tc-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.team-cards-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1.25rem;}
+.tc{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:1.5rem 1.25rem;text-align:center;transition:all 0.25s;
+}
+.tc:hover{box-shadow:var(--shadow);transform:translateY(-3px);}
+.tc-ava{
+  width:64px;height:64px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;font-size:1.3rem;font-weight:800;
+  font-family:'Playfair Display',serif;
+  overflow:hidden;border:2px solid var(--border);
+}
+.tc-ava img{width:100%;height:100%;object-fit:cover;}
+.tc-ava.amber{background:rgba(217,119,6,0.1);color:var(--amber);border-color:rgba(217,119,6,0.2);}
+.tc-ava.teal{background:rgba(15,118,110,0.1);color:var(--teal);border-color:rgba(15,118,110,0.2);}
+.tc-ava.navy{background:rgba(30,58,95,0.1);color:var(--navy);border-color:rgba(30,58,95,0.2);}
+.tc-ava.green{background:rgba(21,128,61,0.1);color:#15803d;border-color:rgba(21,128,61,0.2);}
+.tc h4{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:3px;}
+.tc .tc-role{font-size:0.75rem;font-weight:600;margin-bottom:2px;}
+.tc .tc-dept{font-size:0.73rem;color:var(--muted);}
+.tc-more{
+  background:var(--cream);border:2px dashed var(--border);border-radius:14px;
+  padding:1.5rem 1.25rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+}
+.tc-more p{font-size:0.78rem;color:var(--muted);}
+
+/* ═══════════════════════════════
+   CONTACT
+═══════════════════════════════ */
+#contact{background:var(--white);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:3.5rem;align-items:start;}
+.contact-left{display:flex;flex-direction:column;gap:1.25rem;}
+.cinfo-card{
+  background:var(--paper);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.cinfo-header{
+  background:linear-gradient(135deg,var(--navy),var(--teal));
+  padding:1.15rem;color:#fff;
+}
+.cinfo-header h3{font-size:1.15rem;font-weight:800;margin-bottom:3px;}
+.cinfo-header p{font-size:0.82rem;opacity:0.8;}
+.cinfo-body{padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;}
+.cinfo-row{display:flex;gap:12px;align-items:flex-start;}
+.cinfo-icon{
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.15);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.cinfo-row-text .ci-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;color:var(--muted);margin-bottom:2px;}
+.cinfo-row-text .ci-val{font-size:0.88rem;color:var(--coal);font-weight:500;line-height:1.5;}
+.cinfo-row-text a{color:var(--amber);}
+.map-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:0.75rem;border-radius:10px;
+  background:linear-gradient(135deg,var(--navy),#2d4a7a);
+  color:#fff;font-weight:700;font-size:0.85rem;
+  transition:all 0.2s;width:100%;
+}
+.map-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(30,58,95,0.3);}
+.contact-form-card{
+  background:var(--paper);border:1px solid var(--border);border-radius:16px;
+  padding:2rem;box-shadow:var(--shadow-sm);
+}
+.contact-form-card h3{font-size:1.15rem;font-weight:800;margin-bottom:1.5rem;}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.fg label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);}
+.fg input,.fg textarea,.fg select{
+  background:#fff;border:1.5px solid var(--border);border-radius:10px;
+  padding:0.7rem 1rem;color:var(--coal);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;
+  outline:none;transition:border-color 0.2s;resize:vertical;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--amber);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-submit{
+  width:100%;background:linear-gradient(135deg,var(--amber),var(--rust));
+  color:#fff;padding:0.875rem;border-radius:10px;
+  font-weight:700;font-size:0.9rem;border:none;cursor:pointer;
+  transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;
+  box-shadow:0 3px 12px rgba(217,119,6,0.3);margin-top:0.5rem;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(217,119,6,0.4);}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{
+  background:var(--coal);color:rgba(255,255,255,0.65);
+  padding:3rem 3rem 1.75rem;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:2.5rem;
+}
+.footer-brand-col{ /* kept for layout semantics; no visual rules needed */ display:block; }
+.footer-logos{display:flex;align-items:center;gap:14px;margin-bottom:1rem;}
+.f-logo-hex{
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+}
+.f-logo-hex svg{width:42px;height:42px;}
+.f-wordmark{
+  font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;
+  color:var(--amber3);letter-spacing:-0.02em;
+}
+.f-wordmark span{color:#fff;}
+.footer-brand-col p{font-size:0.82rem;line-height:1.7;max-width:240px;margin-bottom:1.25rem;}
+.f-partner-logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.fpl-badge{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);
+  padding:0.4rem 0.75rem;border-radius:8px;
+}
+.fpl-icon{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;font-weight:800;color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;text-align:center;line-height:1.2;
+  padding:3px;
+}
+.fpl-icon.iit{background:linear-gradient(135deg,#003087,#1560bd);}
+.fpl-icon.mcl{background:linear-gradient(135deg,#1a4a1a,#2d6e2d);}
+.fpl-text{font-size:0.68rem;color:rgba(255,255,255,0.7);font-weight:600;line-height:1.3;}
+.footer-col h5{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:rgba(255,255,255,0.4);
+  margin-bottom:1rem;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.footer-col ul li a{
+  font-size:0.85rem;color:rgba(255,255,255,0.65);
+  transition:color 0.2s;
+}
+.footer-col ul li a:hover{color:var(--amber3);}
+.footer-dl-btn{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.25);
+  color:var(--amber3);padding:0.5rem 0.875rem;border-radius:8px;
+  font-size:0.8rem;font-weight:600;margin-top:0.75rem;width:fit-content;
+  transition:all 0.2s;
+}
+.footer-dl-btn:hover{background:rgba(217,119,6,0.25);}
+.footer-divider{height:1px;background:rgba(255,255,255,0.08);margin-bottom:1.5rem;}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom-left{font-size:0.78rem;}
+.footer-socials{display:flex;gap:0.625rem;}
+.f-social{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  transition:all 0.2s;
+}
+.f-social:hover{background:rgba(217,119,6,0.2);border-color:rgba(217,119,6,0.3);}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;}
+  .pi-card{max-width:460px;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .more-coming{grid-column:span 2;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+}
+@media(max-width:768px){
+  nav{padding:0 1.25rem;}
+  .nav-links{display:none;}
+  .nav-iit{display:none;}
+  .nav-divider{display:none;}
+  .hamburger{display:flex;}
+  section{padding:4.5rem 1.25rem;}
+  #hero{padding:6.5rem 1.25rem 4rem;}
+  .hero-stats{gap:1.5rem;}
+  .gallery-mosaic{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:repeat(4,160px);
+  }
+  .gitem:nth-child(1){grid-column:span 2;grid-row:span 1;}
+  .gitem:nth-child(5){grid-column:span 1;}
+  .products-grid{grid-template-columns:1fr;}
+  .more-coming{grid-column:span 1;}
+  .pi-section-full{grid-template-columns:1fr;text-align:center;}
+  .pi-ava-lg{margin:0 auto;}
+  .pi-incharge-badge{margin:0 auto 0.5rem;}
+  .pi-tags{justify-content:center;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  #equipment{padding:3rem 1.25rem;}
+}
+.iit-logo-nav{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  padding:3px;
+}
+.iit-logo-img,
+.mcl-logo-img{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  background:white;
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  flex-shrink:0;
+}
+.pi-ava-lg{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  overflow:hidden;
+  border:4px solid #ffffff;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  flex-shrink:0;
+}
+
+.pi-ava-lg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.map-section{
+  margin-top:10px;
+  background:#ffffff;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.map-header h3{
+  margin-bottom:4px;
+  font-size:1.4rem;
+  color:var(--navy);
+}
+
+.map-header p{
+  color:#666;
+  margin-bottom:12px;
+}
+
+.map-container{
+  overflow:hidden;
+  border-radius:18px;
+  margin-bottom:20px;
+}
+
+.map-container iframe{
+  width:100%;
+  height:100px;
+  display:block;
+}
+
+.map-btn{
+  display:inline-block;
+  padding:12px 22px;
+  background:linear-gradient(90deg,var(--navy),var(--navy2));
+  color:#fff;
+  text-decoration:none;
+  border-radius:12px;
+  font-weight:600;
+  transition:0.3s ease;
+}
+
+.map-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-hex">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="22,3 39,12.5 39,31.5 22,41 5,31.5 5,12.5" fill="url(#ng)"/>
+        <line x1="14" y1="30" x2="30" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M27 11 Q35 9 36 17 Q30 15 27 19Z" fill="white"/>
+        <circle cx="16" cy="29" r="2.5" fill="rgba(255,255,255,0.5)"/>
+        <ellipse cx="7" cy="22" rx="4" ry="2" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+        <ellipse cx="37" cy="22" rx="4" ry="2" stroke="#f59e0b" stroke-width="1.5" fill="none"/>
+        <defs>
+          <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1e3a5f"/>
+            <stop offset="100%" style="stop-color:#0f766e"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="nav-wordmark">
+      <div class="nav-wordmark-main">Mine<span>Chain</span></div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-iit">
+      <img
+  src="./assets/iitsim.png"
+  alt="IIT ISM Logo"
+  class="iit-logo-nav"
+/>
+      <div class="iit-text-nav">IIT (ISM)<br/>Dhanbad</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#contact" target="_blank" class="nav-btn">✆ Contact Us</a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#products" onclick="toggleMenu()">Products</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="#team" onclick="toggleMenu()">Team</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="https://shieldmine.streamlit.app" target="_blank" style="color:var(--amber);font-weight:700;">⚒ Shield Mine ↗</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hex-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-top-badges">
+        <div class="hero-badge"><span class="dot dot-amber"></span>AI-Powered Mining Research Lab</div>
+        <div class="hero-badge" style="animation-delay:0.1s"><span class="dot dot-teal"></span>IIT (ISM) Dhanbad</div>
+        <!-- <div class="hero-badge" style="animation-delay:0.2s"><span class="dot dot-navy"></span>Est. 2022</div> -->
+      </div>
+     <h1 style="font-size:clamp(2.8rem,6vw,5rem);">
+  Mine Digitalization<br/>
+  & <em>Artificial Intelligence</em><br/>
+  <span class="teal">Laboratory</span>
+</h1>
+
+<div style="
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:1.25rem;
+  align-items:center;
+  justify-content:center;
+">
+
+  <span style="
+    background:rgba(15,118,110,0.08);
+    border:1px solid rgba(15,118,110,0.2);
+    color:var(--teal);
+    padding:4px 12px;
+    border-radius:100px;
+    font-size:0.78rem;
+    font-weight:600;
+  ">
+    🔬 Lab Incharge: Dr. Siddhartha Agarwal
+  </span>
+
+  <span style="
+    background:rgba(217,119,6,0.08);
+    border:1px solid rgba(217,119,6,0.2);
+    color:var(--amber);
+    padding:4px 12px;
+    border-radius:100px;
+    font-size:0.78rem;
+    font-weight:600;
+  ">
+    🏭 Sponsored by MCL Coal India
+  </span>
+
+</div>
+
+      <p class="hero-desc">
+        Pioneering AI-driven solutions for mining safety, hazard prediction, inspection automation, and digital transformation — built by researchers at IIT (ISM) Dhanbad, India's premier institute for mining science.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" target="_blank" class="btn-solid">🛡 View All Products ↗</a>
+        <a href="#team" class="btn-solid btn-teal">⟡ Meet Our Team</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num n-amber">3+</div><div class="hstat-label">Live Products</div></div>
+        <div class="hstat"><div class="hstat-num n-teal">5K+</div><div class="hstat-label">Incidents Analysed</div></div>
+        <div class="hstat"><div class="hstat-num n-navy">10+</div><div class="hstat-label">Projects</div></div>
+        <div class="hstat"><div class="hstat-num" style="color:var(--rust)">10+</div><div class="hstat-label">Team Members</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="sec-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-eyebrow" style="color:var(--amber)"><div class="ew-line" style="background:var(--amber)"></div>About the Lab</div>
+        <h2 class="sec-title">Where <em style="color:var(--amber)">AI</em> Meets<br/>the Mining Industry</h2>
+        <p class="sec-desc" style="margin-bottom:1rem">
+          The Mine Digitalization & Artificial Intelligence (MDAI) Lab operates within the Department of Mining Engineering at IIT (ISM) Dhanbad — India's oldest and most prestigious mining institute, established in 1926.
+        </p>
+        <p class="sec-desc">
+          Under the leadership of Dr. Siddhartha Agarwal, and sponsored by Mahanadi Coalfields Limited (MCL), we develop intelligent systems that protect miners, predict hazards, automate inspections, and digitize mine operations end-to-end.
+        </p>
+        <div class="about-features">
+          <div class="af"><div class="af-icon amber">🧠</div><div class="af-body"><h4>AI & Machine Learning</h4><p>NLP, RAG systems, transformer models, and deep learning tailored for mining domain data</p></div></div>
+          <div class="af"><div class="af-icon teal">📡</div><div class="af-body"><h4>IoT & Digital Twins</h4><p>Real-time sensor networks, drone surveys, and digital simulation of mine environments</p></div></div>
+          <div class="af"><div class="af-icon rust">⛑️</div><div class="af-body"><h4>Mine Safety Systems</h4><p>Data-driven accident analysis, automated inspection, and hazard prediction at scale</p></div></div>
+          <div class="af"><div class="af-icon navy">🤝</div><div class="af-body"><h4>Industry Collaboration</h4><p>Working with Coal India, MCL, SCCL and regulatory bodies to deploy production-grade tools</p></div></div>
+        </div>
+      </div>
+      <div class="about-right reveal reveal-d1">
+        <div class="iit-card">
+            <img src="./assets/iitsim.png" alt="IIT Logo" class="mcl-logo-img">
+          <div class="iit-card-text">
+            <h3>Indian Institute of Technology (ISM)</h3>
+            <p>Dhanbad, Jharkhand · Founded 1926<br/>India's Premier Mining & Technology Institute<br/>NIRF Ranking: Top 30 Engineering</p>
+          </div>
+        </div>
+        <div class="mcl-sponsor-card">
+            <img src="./assets/mcllogo.png" alt="MCL Logo" class="mcl-logo-img">
+          <div>
+            <h4>Sponsored by MCL — Coal India</h4>
+            <p>Mahanadi Coalfields Limited funds and supports the MDAI Lab's research initiatives, providing real-world datasets, field access, and industry expertise.</p>
+          </div>
+        </div>
+        <div class="stat-mini-row">
+          <div class="stat-mini"><div class="sm-num" style="color:var(--amber)">98+</div><div class="sm-label">Years IIT ISM Legacy</div></div>
+          <div class="stat-mini"><div class="sm-num" style="color:var(--teal)">5K+</div><div class="sm-label">Mine Incidents Analysed</div></div>
+          <div class="stat-mini"><div class="sm-num" style="color:var(--navy)">3</div><div class="sm-label">Live AI Products</div></div>
+          <div class="stat-mini"><div class="sm-num" style="color:var(--rust)">10+</div><div class="sm-label">Team Members</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRODUCTS ══ -->
+<section id="products">
+  <div class="sec-inner">
+    <div class="reveal">
+      <div class="sec-eyebrow" style="color:var(--teal)"><div class="ew-line" style="background:var(--teal)"></div>Tools Built by Our Lab</div>
+      <h2 class="sec-title">Our <em style="color:var(--teal)">Products</em> & Applications</h2>
+      <p class="sec-desc">Real tools, real impact — built by our faculty, staff, PhD scholars, and interns for the mining industry.</p>
+    </div>
+    <div class="products-grid reveal reveal-d1">
+
+      <!-- Shield Mine -->
+      <div class="pcard">
+        <img src="./assets/shieldss.png" alt="Shield Mine" class="pcard-image">
+        <div class="pcard-strip" style="background:linear-gradient(90deg,var(--amber),var(--rust))"></div>
+        <div class="pcard-body">
+          <span class="pcard-tag tag-amber">Web App · AI Analytics</span>
+          <h3>⚒️ Shield Mine</h3>
+          <p> Mining Accident Analysis & RAG System platform with Hybrid RAG (BM25 + Vector search), automated safety audit report generation, chi-squared association analysis, K-means clustering, and interactive visualizations across 5,000+ incident records.</p>
+        </div>
+        <div class="pcard-footer">
+          <div class="pcard-meta">🛠 Lab Team · 2024 · Streamlit · LangChain · Groq LLM</div>
+          <a href="https://shieldmine.streamlit.app" target="_blank" class="pcard-btn amber">⚒ Launch Shield Mine ↗</a>
+        </div>
+      </div>
+
+      <!-- AIMSURE -->
+      <div class="pcard">
+        <img src="./assets/aimsure.jpeg" alt="Aimsure" class="pcard-image">
+        <div class="pcard-strip" style="background:linear-gradient(90deg,var(--teal),var(--teal3))"></div>
+        <div class="pcard-body">
+          <span class="pcard-tag tag-teal">AI Inspection · Health & Safety</span>
+          <h3>AIMSURE</h3>
+          <p>AI-enabled Mine Inspection system for Health, Safety & Data Analysis. Automates mine inspection workflows, flags regulatory compliance issues, generates structured safety audit trails, and tracks health metrics for mine workers and environments.</p>
+        </div>
+        <div class="pcard-footer">
+          <div class="pcard-meta">🛠 Lab Team · 2024 · Computer Vision · AI</div>
+          <button class="pcard-btn disabled" disabled>Coming Soon</button>
+        </div>
+      </div>
+
+      <!-- NLP Project -->
+      <div class="pcard">
+          <img src="./assets/nlp.jpeg" alt="Mine NLP Engine" class="pcard-image">
+        <div class="pcard-strip" style="background:linear-gradient(90deg,var(--navy),var(--navy2))"></div>
+        <div class="pcard-body">
+          <span class="pcard-tag tag-navy">NLP · Research Demo</span>
+          <h3>Mine NLP Engine</h3>
+          <p>Natural Language Processing toolkit for the mining domain — incident report classification, automatic cause extraction from accident narratives, keyword mining from regulatory documents, and semantic search across mine safety literature using transformer models.</p>
+        </div>
+        <div class="pcard-footer">
+          <div class="pcard-meta">🛠 Research Demo · 2024 · BERT · spaCy · Transformers</div>
+          <!-- <a href="#contact" class="pcard-btn navy">🔤 Request Demo →</a> -->
+        <button class="pcard-btn disabled" disabled>Coming Soon</button>
+        </div>
+      </div>
+
+      <!-- More Coming -->
+      <div class="more-coming">
+        <div style="font-size:2.5rem">🔭</div>
+        <h4>More Products on the Way</h4>
+        <p>Mine GIS Portal · Hazard Prediction Engine · Digital Twin Dashboard · Air Quality Monitor Dashboard<br/>Being built by our research staff, scholars, and interns — stay tuned!</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY PREVIEW ══ -->
+<section id="gallery-preview">
+  <div class="sec-inner">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0.5rem">
+      <div>
+        <div class="sec-eyebrow" style="color:var(--rust)"><div class="ew-line" style="background:var(--rust)"></div>Lab Life & Our Work</div>
+        <h2 class="sec-title">Behind the <em style="color:var(--rust)">Scenes</em></h2>
+        <p class="sec-desc">Fieldwork, lab equipment, workshops, and team moments.</p>
+      </div>
+      <a href="gallery.html" class="btn-ghost" style="flex-shrink:0">View Full Gallery →</a>
+    </div>
+    <div class="gallery-mosaic reveal">
+      <!-- Using Unsplash placeholder images - replace with actual photos -->
+      <div class="gitem">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" alt="Mining Operations"/>
+        <div class="gitem-label-bar"><span>⛏ Underground Mine Visit</span></div>
+        <div class="gitem-overlay"><div class="gitem-overlay-label">🔍 View Photo</div></div>
+      </div>
+      <div class="gitem">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Lab Research"/>
+        <div class="gitem-label-bar"><span>💻 Lab Research Sessions</span></div>
+        <div class="gitem-overlay"><div class="gitem-overlay-label">🔍 View Photo</div></div>
+      </div>
+      <div class="gitem">
+        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80" alt="Drone Survey"/>
+        <div class="gitem-label-bar"><span>🚁 Drone Field Survey</span></div>
+        <div class="gitem-overlay"><div class="gitem-overlay-label">🔍 View Photo</div></div>
+      </div>
+      <div class="gitem">
+        <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&q=80" alt="Team Workshop"/>
+        <div class="gitem-label-bar"><span>🎓 Research Presentation</span></div>
+        <div class="gitem-overlay"><div class="gitem-overlay-label">🔍 View Photo</div></div>
+      </div>
+      <div class="gitem">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="Equipment"/>
+        <div class="gitem-label-bar"><span>🔬 Lab Equipment & Sensors</span></div>
+        <div class="gitem-overlay"><div class="gitem-overlay-label">🔍 View Photo</div></div>
+      </div>
+    </div>
+    <div class="gallery-cta reveal">
+      <a href="gallery.html" class="btn-solid" style="background:linear-gradient(135deg,var(--rust),#92400e)">🖼 See Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EQUIPMENT ══ -->
+<section id="equipment">
+  <div class="eq-inner">
+    <div class="eq-title reveal">Lab <span>Equipment</span> & Infrastructure</div>
+    <div class="eq-grid reveal">
+      <div class="eq-item"><span class="eq-emoji">🚁</span><div class="eq-name">Survey Drone</div></div>
+      <div class="eq-item"><span class="eq-emoji">🌬️</span><div class="eq-name">Air Quality Monitor</div></div>
+      <div class="eq-item"><span class="eq-emoji">⚙️</span><div class="eq-name">PLC Systems</div></div>
+      <div class="eq-item"><span class="eq-emoji">📡</span><div class="eq-name">IoT Sensor Network</div></div>
+      <div class="eq-item"><span class="eq-emoji">🖥️</span><div class="eq-name">GPU Workstations</div></div>
+      <div class="eq-item"><span class="eq-emoji">📷</span><div class="eq-name">Thermal Cameras</div></div>
+      <div class="eq-item"><span class="eq-emoji">🔦</span><div class="eq-name">Gas Detectors</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEAM ══ -->
+<section id="team">
+  <div class="sec-inner">
+    <div class="reveal">
+      <div class="sec-eyebrow" style="color:var(--navy)"><div class="ew-line" style="background:var(--navy)"></div>Our Team</div>
+      <h2 class="sec-title">
+        The Minds <em style="color:var(--navy)">Behind</em> the Innovation
+      </h2>
+    </div>
+
+<!-- PI -->
+<div class="pi-section-full reveal">
+  
+  <!-- Profile Image -->
+  <div class="pi-ava-lg">
+    <img src="./assets/sagarwal.jpeg" alt="Dr. Siddhartha Agarwal">
+  </div>
+
+  <div>
+    <div class="pi-incharge-badge">⭐ Lab Incharge & Principal Investigator</div>
+
+    <h3>Dr. Siddhartha Agarwal</h3>
+
+    <div class="pi-role-text">
+      Assistant Professor, Department of Mining Engineering
+    </div>
+
+    <div class="pi-inst-text">
+      🏛 IIT (ISM) Dhanbad, Jharkhand, India · sagarwal@iitism.ac.in
+    </div>
+
+    <div class="pi-tags">
+      <span class="pi-tag pt-a">Mine Safety AI</span>
+      <span class="pi-tag pt-t">NLP & RAG Systems</span>
+      <span class="pi-tag pt-n">Mine Digitalization</span>
+      <span class="pi-tag pt-a">Computer Vision</span>
+      <span class="pi-tag pt-t">IoT & Sensor Systems</span>
+      <span class="pi-tag pt-n">Hazard Prediction</span>
+    </div>
+  </div>
+
+</div>
+
+    <!-- Project Staff -->
+    <div class="tc-section reveal">
+      <div class="tc-section-label">Project Staff</div>
+      <div class="team-cards-row">
+        <div class="tc">
+          <div class="tc-ava amber">MR</div>
+          <h4>Manshi Ruj</h4>
+          <div class="tc-role" style="color:var(--amber)">Research Assistant – I</div>
+          <div class="tc-dept">AI & Data Systems</div>
+        </div>
+        <div class="tc">
+          <div class="tc-ava teal">KR</div>
+          <h4>Kunak Ranjit</h4>
+          <div class="tc-role" style="color:var(--teal)">Project Associate – I</div>
+          <div class="tc-dept">Digital Systems & IoT</div>
+        </div>
+        <div class="tc">
+          <div class="tc-ava navy">AG</div>
+          <h4>Arsalan Ghani</h4>
+          <div class="tc-role" style="color:var(--navy)">Project Associate – I</div>
+          <div class="tc-dept">Mining Technology</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PhD Scholars -->
+    <div class="tc-section reveal">
+      <div class="tc-section-label">PhD Scholars</div>
+      <div class="team-cards-row">
+        <div class="tc">
+          <div class="tc-ava amber">UK</div>
+          <h4>Usha Kumari</h4>
+          <div class="tc-role" style="color:var(--amber)">PhD Scholar</div>
+          <div class="tc-dept">Mine Safety & AI</div>
+        </div>
+        <div class="tc-more">
+          <div style="font-size:1.75rem">👩‍🔬</div>
+          <p>More PhD scholars<br/>joining soon</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interns & MTech -->
+    <div class="tc-section reveal">
+      <div class="tc-section-label">Interns & MTech Students</div>
+      <div class="team-cards-row">
+        <div class="tc">
+          <div class="tc-ava green">CB</div>
+          <h4>Chandraboli Banerjee</h4>
+          <div class="tc-role" style="color:#15803d">Research Intern</div>
+          <div class="tc-dept">NLP & Data Analysis</div>
+        </div>
+        <div class="tc-more">
+          <div style="font-size:1.75rem">👨‍💻</div>
+          <p>More interns &<br/>MTech students</p>
+        </div>
+        <div class="tc-more">
+          <div style="font-size:1.75rem">🎓</div>
+          <p>Open positions<br/><a href="#contact" style="color:var(--amber);font-weight:600;font-size:0.8rem;">Apply here →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="sec-inner">
+    <div class="reveal">
+      <div class="sec-eyebrow" style="color:var(--amber)"><div class="ew-line" style="background:var(--amber)"></div>Get in Touch</div>
+      <h2 class="sec-title">Contact <em style="color:var(--amber)">Our Lab</em></h2>
+      <p class="sec-desc" style="margin-bottom:3rem">Internships, collaborations, demos, or research queries — we'd love to connect.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-left">
+        <div class="cinfo-card">
+          <div class="cinfo-header">
+            <h3>MDAI Lab — IIT (ISM) Dhanbad</h3>
+            <p>Mine Digitalization & Artificial Intelligence Laboratory</p>
+          </div>
+          <div class="cinfo-body">
+            <div class="cinfo-row">
+              <div class="cinfo-icon">📍</div>
+              <div class="cinfo-row-text"><div class="ci-label">Address</div><div class="ci-val">Dept. of Mining Engineering, IIT (ISM) Dhanbad<br/>Jharkhand – 826004, India</div></div>
+            </div>
+            <div class="cinfo-row">
+              <div class="cinfo-icon">👨‍🏫</div>
+              <div class="cinfo-row-text"><div class="ci-label">Lab Incharge</div><div class="ci-val">Dr. Siddhartha Agarwal<br/><a href="mailto:sagarwal@iitism.ac.in">sagarwal@iitism.ac.in</a></div></div>
+            </div>
+            <div class="cinfo-row">
+              <div class="cinfo-icon">📧</div>
+              <div class="cinfo-row-text"><div class="ci-label">Lab Email</div><div class="ci-val"><a href="mailto:lab@minechain.in" style="color:var(--amber)">minechain@gmail.com</a></div></div>
+            </div>
+            <!-- <div class="cinfo-row">
+              <div class="cinfo-icon">🌐</div>
+              <div class="cinfo-row-text"><div class="ci-label">Website</div><div class="ci-val">minechain.in</div></div>
+            </div> -->
+          </div>
+        </div>
+        <!-- <a href="https://maps.google.com/?q=IIT+ISM+Dhanbad+Jharkhand+India" target="_blank" class="map-btn">
+          📍 View Lab on Google Maps →
+        </a> -->
+        <div class="map-section">
+
+  <div class="map-header">
+    <h3>📍 Visit Our Lab</h3>
+    <p>IIT (ISM) Dhanbad, Jharkhand, India</p>
+  </div>
+
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps?q=IIT+ISM+Dhanbad+Jharkhand+India&output=embed"
+      width="100%"
+      height="350"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <a href="https://maps.google.com/?q=IIT+ISM+Dhanbad+Jharkhand+India"
+     target="_blank"
+     class="map-btn">
+     Open in Google Maps →
+  </a>
+
+</div>
+       
+      </div>
+      <div class="contact-form-card reveal reveal-d1">
+        <h3>Send a Message</h3>
+        <div class="form-row">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="Your first name"/></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Your last name"/></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="you@example.com"/></div>
+        <div class="fg"><label>Organisation</label><input type="text" placeholder="IIT / Coal India / University..."/></div>
+        <div class="fg">
+          <label>Regarding</label>
+          <select>
+            <option>Research Collaboration</option>
+            <option>Internship / MTech Inquiry</option>
+            <option>Product Demo Request</option>
+            <option>Industry Partnership</option>
+            <option>Media / Press</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea rows="4" placeholder="Tell us about your interest or query..."></textarea></div>
+        <button class="btn-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand-col">
+      <div class="footer-logos">
+        <div class="f-logo-hex">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="22,3 39,12.5 39,31.5 22,41 5,31.5 5,12.5" fill="url(#fg)"/>
+            <line x1="14" y1="30" x2="30" y2="14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M27 11 Q35 9 36 17 Q30 15 27 19Z" fill="white"/>
+            <circle cx="16" cy="29" r="2.5" fill="rgba(255,255,255,0.5)"/>
+            <ellipse cx="7" cy="22" rx="4" ry="2" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+            <ellipse cx="37" cy="22" rx="4" ry="2" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+            <defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1e3a5f"/><stop offset="100%" style="stop-color:#0f766e"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div>
+          <div class="f-wordmark">Mine<span>Chain</span></div>
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:2px;letter-spacing:0.08em;text-transform:uppercase;">MDAI Lab · minechain.in</div>
+        </div>
+      </div>
+      <p>Mine Digitalization & Artificial Intelligence Laboratory — advancing safe, smart, and sustainable mining through cutting-edge AI research.</p>
+      <div class="f-partner-logos">
+        <div class="fpl-badge">
+          <div class="fpl-icon iit">IIT<br/>ISM</div>
+          <div class="fpl-text">IIT (ISM)<br/>Dhanbad</div>
+        </div>
+        <div class="fpl-badge">
+          <div class="fpl-icon mcl">MCL<br/>CIL</div>
+          <div class="fpl-text">Mahanadi<br/>Coalfields Ltd.</div>
+        </div>
+      </div>
+      <a href="#" class="footer-dl-btn" style="margin-top:1rem">📥 Download Brochure</a>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#about">About the Lab</a></li>
+        <li><a href="#products">Products & Apps</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Products</h5>
+      <ul>
+        <li><a href="https://shieldmine.streamlit.app" target="_blank">⚒ Shield Mine ↗</a></li>
+        <li><a href="#">🛡 AIMSURE (Soon)</a></li>
+        <li><a href="#contact">🔤 NLP Engine (soon)</a></li>
+      </ul>
+      <h5 style="margin-top:1.5rem">Contact</h5>
+      <ul>
+        <li><a href="mailto:lab@minechain.in">📧 minechain@gmail.com</a></li>
+        <li><a href="mailto:sagarwal@iitism.ac.in">👨‍🏫 sagarwal@iitism.ac.in</a></li>
+        <li><a href="https://maps.google.com/?q=IIT+ISM+Dhanbad" target="_blank">📍 View on Map</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="https://www.iitism.ac.in" target="_blank">IIT (ISM) Website</a></li>
+        <li><a href="https://www.coalindia.in/" target="_blank">MCL Coal India</a></li>
+        <li><a href="#">Lab Publications</a></li>
+        <li><a href="#">Join / Internship</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">© 2026 Mine Digitalization & Artificial Intelligence Laboratory · IIT (ISM) Dhanbad · All rights reserved · minechain.in</div>
+    <div class="footer-socials">
+      <a href="#" class="f-social" title="LinkedIn">💼</a>
+      <a href="#" class="f-social" title="Twitter">🐦</a>
+      <a href="#" class="f-social" title="GitHub">🐙</a>
+      <a href="#" class="f-social" title="ResearchGate">🔬</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), i*60);
+    }
+  });
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id;});
+  navLinks.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href')==='#'+cur)a.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
