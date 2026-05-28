@@ -261,117 +261,241 @@ nav{
   <div class="gallery-container">
 
     <!-- Featured / Lab -->
-    <div class="gallery-category" data-cat="lab">
-      <div class="cat-label"><span class="cat-label-icon">🔬</span> Lab & Equipment</div>
-      <div class="photo-grid featured">
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80" alt="Lab Equipment"/>
-          <div class="pg-overlay"><div class="pg-caption">Lab Workstation & Sensor Array</div><div class="pg-sub">MDAI Lab · IIT (ISM) Dhanbad</div></div>
-          <div class="pg-bottom-label"><span>🖥 Main Lab Setup</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&q=80" alt="Research Work"/>
-          <div class="pg-overlay"><div class="pg-caption">AI Research & Development</div><div class="pg-sub">Deep Learning Model Training</div></div>
-          <div class="pg-bottom-label"><span>💻 AI Development</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🚁</div><div class="pg-ph-text">Survey Drone<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">Aerial Survey Drone</div><div class="pg-sub">Used for mine site mapping</div></div>
-          <div class="pg-bottom-label"><span>🚁 Survey Drone</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🌬️</div><div class="pg-ph-text">Air Quality Monitor<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">Air Quality Monitoring System</div><div class="pg-sub">Real-time gas & particulate sensing</div></div>
-          <div class="pg-bottom-label"><span>🌬️ Air Quality Monitor</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">⚙️</div><div class="pg-ph-text">PLC Control System<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">PLC Automation Systems</div><div class="pg-sub">Programmable Logic Controllers</div></div>
-          <div class="pg-bottom-label"><span>⚙️ PLC Systems</span></div>
-        </div>
+<!-- Featured / Lab -->
+<div class="gallery-category" data-cat="lab">
+  <div class="cat-label">
+    <span class="cat-label-icon">🔬</span> Lab & Equipment
+  </div>
+
+  <div class="photo-grid featured">
+
+    <!-- Main Lab -->
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img9.jpg" alt="Lab Equipment"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Lab Workstation & Sensor Array</div>
+        <div class="pg-sub">MDAI Lab · IIT (ISM) Dhanbad</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🖥 Main Lab Setup</span>
       </div>
     </div>
 
-    <!-- Field & Mines -->
-    <div class="gallery-category" data-cat="field">
-      <div class="cat-label"><span class="cat-label-icon">⛏</span> Field Work & Mine Visits</div>
-      <div class="photo-grid">
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Mining Site"/>
-          <div class="pg-overlay"><div class="pg-caption">Underground Mine Site Visit</div><div class="pg-sub">Coal mine fieldwork</div></div>
-          <div class="pg-bottom-label"><span>⛏ Mine Site Visit</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80" alt="Drone Survey"/>
-          <div class="pg-overlay"><div class="pg-caption">Drone Survey — Open Cast Mine</div><div class="pg-sub">Aerial photogrammetry mapping</div></div>
-          <div class="pg-bottom-label"><span>🚁 Drone Survey</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🏭</div><div class="pg-ph-text">MCL Mine Visit<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">MCL Coalfield Visit</div><div class="pg-sub">Mahanadi Coalfields field study</div></div>
-          <div class="pg-bottom-label"><span>🏭 MCL Coalfield</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">📡</div><div class="pg-ph-text">Sensor Deployment<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">IoT Sensor Deployment</div><div class="pg-sub">Installing mine monitoring sensors</div></div>
-          <div class="pg-bottom-label"><span>📡 Sensor Install</span></div>
-        </div>
+    <!-- AI Development -->
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=800&q=80" alt="AI Research"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">AI Research & Development</div>
+        <div class="pg-sub">Deep Learning Model Training</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>💻 AI Development</span>
       </div>
     </div>
 
-    <!-- Team & Events -->
-    <div class="gallery-category" data-cat="team">
-      <div class="cat-label"><span class="cat-label-icon">👥</span> Team & Events</div>
-      <div class="photo-grid">
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Team"/>
-          <div class="pg-overlay"><div class="pg-caption">Lab Team — MDAI Lab</div><div class="pg-sub">IIT (ISM) Dhanbad</div></div>
-          <div class="pg-bottom-label"><span>👥 Lab Team</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🎓</div><div class="pg-ph-text">Internship Batch<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">Intern & MTech Batch 2024</div><div class="pg-sub">Onboarding & orientation</div></div>
-          <div class="pg-bottom-label"><span>🎓 Intern Batch</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🏆</div><div class="pg-ph-text">Award / Recognition<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">Lab Recognition & Awards</div><div class="pg-sub">Industry collaboration award</div></div>
-          <div class="pg-bottom-label"><span>🏆 Awards</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🤝</div><div class="pg-ph-text">Industry Visit<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">MCL Industry Partnership</div><div class="pg-sub">Coal India collaboration meet</div></div>
-          <div class="pg-bottom-label"><span>🤝 Industry Visit</span></div>
-        </div>
+    <!-- Drone -->
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/drone2.jpg" alt="Survey Drone"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Aerial Survey Drone</div>
+        <div class="pg-sub">Used for mine site mapping</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🚁 Survey Drone</span>
       </div>
     </div>
 
-    <!-- Research & Demos -->
-    <div class="gallery-category" data-cat="research">
-      <div class="cat-label"><span class="cat-label-icon">📊</span> Research, Demos & Presentations</div>
-      <div class="photo-grid">
-        <div class="pg-item" onclick="openLb(this)">
-          <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&q=80" alt="Presentation"/>
-          <div class="pg-overlay"><div class="pg-caption">Shield Mine Demo Presentation</div><div class="pg-sub">AI-powered mining accident analysis</div></div>
-          <div class="pg-bottom-label"><span>🖥 Shield Mine Demo</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">📊</div><div class="pg-ph-text">Conference Presentation<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">National Mining Conference</div><div class="pg-sub">Research paper presentation</div></div>
-          <div class="pg-bottom-label"><span>📊 Conference</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🛡️</div><div class="pg-ph-text">AIMSURE Demo<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">AIMSURE System Demo</div><div class="pg-sub">AI-enabled mine inspection</div></div>
-          <div class="pg-bottom-label"><span>🛡 AIMSURE Demo</span></div>
-        </div>
-        <div class="pg-item" onclick="openLb(this)">
-          <div class="pg-placeholder"><div class="pg-ph-emoji">🔤</div><div class="pg-ph-text">NLP Research Demo<br/>Replace with actual photo</div></div>
-          <div class="pg-overlay"><div class="pg-caption">NLP Engine Research Demo</div><div class="pg-sub">Mine incident text classification</div></div>
-          <div class="pg-bottom-label"><span>🔤 NLP Demo</span></div>
-        </div>
+    <!-- Air Monitor -->
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img5.jpg" alt="Air Quality Monitor"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Air Quality Monitoring System</div>
+        <div class="pg-sub">Real-time gas & particulate sensing</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🌬️ Air Quality Monitor</span>
       </div>
     </div>
+
+    <!-- PLC -->
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img6.jpg" alt="PLC System"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">PLC Automation Systems</div>
+        <div class="pg-sub">Programmable Logic Controllers</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>⚙️ PLC Systems</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Field & Mines -->
+<div class="gallery-category" data-cat="field">
+  <div class="cat-label">
+    <span class="cat-label-icon">⛏</span> Field Work & Mine Visits
+  </div>
+
+  <div class="photo-grid">
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img7.jpg" alt="Mining Site"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Underground Mine Site Visit</div>
+        <div class="pg-sub">Coal mine fieldwork</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>⛏ Mine Site Visit</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/drone2.jpg" alt="Drone Survey"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Drone Survey — Open Cast Mine</div>
+        <div class="pg-sub">Aerial photogrammetry mapping</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🚁 Drone Survey</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img14.png" alt="MCL Mine Visit"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">MCL Coalfield Visit</div>
+        <div class="pg-sub">Mahanadi Coalfields field study</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🏭 MCL Coalfield</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/img13.jpg" alt="Sensor Deployment"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">IoT Sensor Deployment</div>
+        <div class="pg-sub">Installing mine monitoring sensors</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>📡 Sensor Install</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Team & Events -->
+<div class="gallery-category" data-cat="team">
+  <div class="cat-label">
+    <span class="cat-label-icon">👥</span> Team & Events
+  </div>
+
+  <div class="photo-grid">
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt="Team"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Lab Team — MDAI Lab</div>
+        <div class="pg-sub">IIT (ISM) Dhanbad</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>👥 Lab Team</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" alt="Internship Batch"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Intern & MTech Batch 2024</div>
+        <div class="pg-sub">Onboarding & orientation</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🎓 Intern Batch</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=800&q=80" alt="Awards"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Lab Recognition & Awards</div>
+        <div class="pg-sub">Industry collaboration award</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🏆 Awards</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80" alt="Industry Visit"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">MCL Industry Partnership</div>
+        <div class="pg-sub">Coal India collaboration meet</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🤝 Industry Visit</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Research & Demos -->
+<div class="gallery-category" data-cat="research">
+  <div class="cat-label">
+    <span class="cat-label-icon">📊</span> Research, Demos & Presentations
+  </div>
+
+  <div class="photo-grid">
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/shieldss.png" alt="Presentation"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">Shield Mine Demo Presentation</div>
+        <div class="pg-sub">AI-powered mining accident analysis</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🖥 Shield Mine Demo</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Conference"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">National Mining Conference</div>
+        <div class="pg-sub">Research paper presentation</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>📊 Conference</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="./assets/aimsure.jpeg" alt="AIMSURE Demo"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">AIMSURE System Demo</div>
+        <div class="pg-sub">AI-enabled mine inspection</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🛡 AIMSURE Demo</span>
+      </div>
+    </div>
+
+    <div class="pg-item" onclick="openLb(this)">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80" alt="NLP Demo"/>
+      <div class="pg-overlay">
+        <div class="pg-caption">NLP Engine Research Demo</div>
+        <div class="pg-sub">Mine incident text classification</div>
+      </div>
+      <div class="pg-bottom-label">
+        <span>🔤 NLP Demo</span>
+      </div>
+    </div>
+
+  </div>
+</div>
 
   </div>
 </div>
